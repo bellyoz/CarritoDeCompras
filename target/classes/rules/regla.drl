@@ -1,0 +1,63 @@
+package CarritoDeCompras
+ 
+import co.usa.edu.adf.CarritoDeCompras.Producto;
+import co.usa.edu.adf.CarritoDeCompras.Compra;
+
+rule "Hacer un aumento monetario"
+
+when
+   $producto : Producto ( tipo == 'ropa')
+   
+then
+	double descuento = 100;
+  	$producto.setPrecio( $producto.getPrecio()+descuento);
+  
+end
+rule "Hacer un descuento monetario"
+
+when
+   $producto : Producto ( tipo == 'verdura')
+   
+then
+	double descuento = 100;
+  	$producto.setPrecio( $producto.getPrecio()-descuento);
+  
+   
+end
+ 
+rule "Hacer un aumento por porcentaje"
+
+when
+   $producto : Producto ( tipo == 'verdura')
+   
+then
+	double porcentaje = 0.2;
+  	$producto.setPrecio( $producto.getPrecio()*porcentaje+ $producto.getPrecio());
+
+   
+end
+
+rule "Hacer un descuento por porcentaje"
+
+when
+   $producto : Producto ( tipo == 'ropa')
+   
+then
+	double porcentaje = 0.2;
+  	$producto.setPrecio( $producto.getPrecio()-$producto.getPrecio()*porcentaje);
+
+end
+
+rule "IVA"
+
+when
+    $producto : Producto ()
+   
+then
+	double porcentaje = 0.16;
+  	$producto.setPrecio( $producto.getPrecio()+$producto.getPrecio()*porcentaje);
+
+end
+
+
+ 
